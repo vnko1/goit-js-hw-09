@@ -2,9 +2,9 @@ const body = document.body;
 const startBtn = body.querySelector('[data-start]');
 const closeBtn = body.querySelector('[data-stop]');
 
-let intervalId;
-closeBtn.disabled = 'disabled';
-body.style.backgroundColor = localStorage.getItem('color');
+let intervalId = null;
+
+onLoad();
 
 startBtn.addEventListener('click', onStartClick);
 closeBtn.addEventListener('click', onStopClick);
@@ -31,4 +31,9 @@ function getRandomHexColor() {
 
 function bgColorSet() {
   body.style.backgroundColor = getRandomHexColor();
+}
+
+function onLoad() {
+  closeBtn.disabled = 'disabled';
+  body.style.backgroundColor = localStorage.getItem('color');
 }
