@@ -1,4 +1,5 @@
 import flatpickr from 'flatpickr';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import 'flatpickr/dist/flatpickr.min.css';
 
 let selectedTime = null;
@@ -25,7 +26,9 @@ startBtn.addEventListener('click', onStartClick);
 
 function getTime(selectedDate) {
   if (options.defaultDate > selectedDate) {
-    alert('Please choose a date in the future');
+    Notify.failure('Please choose a date in the future', {
+      clickToClose: true,
+    });
     return;
   }
   selectedTime = selectedDate;
