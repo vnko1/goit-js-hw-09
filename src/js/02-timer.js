@@ -3,6 +3,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import 'flatpickr/dist/flatpickr.min.css';
 
 let selectedTime = null;
+let intervalId = null;
 
 const options = {
   enableTime: true,
@@ -39,12 +40,18 @@ function getTime(selectedDate) {
 }
 
 function onStartClick() {
-  setInterval(setTimer, 1000);
+  intervalId = setInterval(setTimer, 1000);
 }
 
 function setTimer() {
   const currentTime = Date.now();
   const deltaTime = selectedTime - currentTime;
+
+  if (deltaTime < 1000) {
+    outputTimerValue(convertMs(deltaTime));
+    clearInterval(intervalId);
+    return;
+  }
   outputTimerValue(convertMs(deltaTime));
 }
 
