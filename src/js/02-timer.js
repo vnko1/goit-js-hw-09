@@ -28,7 +28,7 @@ flatpickr(inputEl, options);
 startBtn.addEventListener('click', onStartClick);
 
 function getTime(selectedDate) {
-  if (options.defaultDate > selectedDate) {
+  if (this.defaultDate > selectedDate) {
     Notify.failure('Please choose a date in the future', {
       clickToClose: true,
     });
@@ -40,6 +40,7 @@ function getTime(selectedDate) {
 }
 
 function onStartClick() {
+  setTimer();
   intervalId = setInterval(setTimer, 1000);
   startBtn.disabled = true;
 }
