@@ -14,18 +14,23 @@ const options = {
     getTime.call(options, selectedDates[0]);
   },
 };
+const BUTTON_UI = {
+  status: 'start',
+  start: { text: 'start' },
+  stop: { text: 'stop' },
+};
 
 const inputEl = document.querySelector('#datetime-picker');
-const startBtn = document.querySelector('[data-start]');
+const btn = document.querySelector('[data-start]');
 const daysOutput = document.querySelector('[data-days]');
 const hoursOutput = document.querySelector('[data-hours]');
 const minutesOutput = document.querySelector('[data-minutes]');
 const secondsOutput = document.querySelector('[data-seconds]');
 
-startBtn.disabled = true;
+btn.disabled = true;
 
 flatpickr(inputEl, options);
-startBtn.addEventListener('click', onStartClick);
+btn.addEventListener('click', onBtnClick);
 
 function getTime(selectedDate) {
   if (this.defaultDate > selectedDate) {
@@ -34,15 +39,22 @@ function getTime(selectedDate) {
     });
     return;
   }
-
+  btn.disabled = false;
   selectedTime = selectedDate;
-  startBtn.disabled = false;
 }
 
-function onStartClick() {
-  setTimer();
-  intervalId = setInterval(setTimer, 1000);
-  startBtn.disabled = true;
+function onBtnClick() {
+  const { status } = BUTTON_UI;
+  if (status === 'start') {
+    BUTTON_UI.status = 'stop';
+    setTimer();
+    intervalId = setInterval(setTimer, 1000);
+    btn.textContent = BUTTON_UI.stop.text;
+  } else {
+    BUTTON_UI.status = 'start';
+    clearInterval(intervalId);
+    btn.textContent = BUTTON_UI.start.text;
+  }
 }
 
 function setTimer() {
