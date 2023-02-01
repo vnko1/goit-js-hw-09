@@ -22,7 +22,7 @@ const hoursOutput = document.querySelector('[data-hours]');
 const minutesOutput = document.querySelector('[data-minutes]');
 const secondsOutput = document.querySelector('[data-seconds]');
 
-startBtn.setAttribute('disabled', 'disabled');
+startBtn.disabled = true;
 
 flatpickr(inputEl, options);
 startBtn.addEventListener('click', onStartClick);
@@ -36,11 +36,12 @@ function getTime(selectedDate) {
   }
 
   selectedTime = selectedDate;
-  startBtn.removeAttribute('disabled');
+  startBtn.disabled = false;
 }
 
 function onStartClick() {
   intervalId = setInterval(setTimer, 1000);
+  startBtn.disabled = true;
 }
 
 function setTimer() {

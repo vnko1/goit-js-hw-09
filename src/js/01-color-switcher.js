@@ -14,14 +14,14 @@ function onStartClick({ target }) {
     () => (body.style.backgroundColor = getRandomHexColor()),
     1000
   );
-  target.disabled = 'disabled';
-  closeBtn.removeAttribute('disabled');
+  target.disabled = true;
+  closeBtn.disabled = false;
 }
 
 function onStopClick({ target }) {
   clearInterval(intervalId);
-  target.disabled = 'disabled';
-  startBtn.removeAttribute('disabled');
+  target.disabled = true;
+  startBtn.disabled = false;
   localStorage.setItem('color', body.style.backgroundColor);
 }
 
